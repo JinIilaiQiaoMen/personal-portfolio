@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任晨光 — 项目作品集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #0f172a;
+            --bg-surface: #112240;
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+            --text-muted: #546e7a;
+            --accent: #00d4ff;
+            --accent-dim: rgba(0, 212, 255, 0.1);
+            --border: rgba(100, 116, 139, 0.15);
+            --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); background-color: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s, backdrop-filter 0.3s; }
+        nav.scrolled { background: rgba(10, 14, 26, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--accent); letter-spacing: 0.05em; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.03em; transition: color 0.3s; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: url('portfolio-hero-bg.jpg') center/cover no-repeat; opacity: 0.6; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10, 14, 26, 0.95) 0%, rgba(10, 14, 26, 0.7) 50%, rgba(10, 14, 26, 0.4) 100%); }
+        .hero-content { position: relative; z-index: 10; max-width: 700px; padding: 0 3rem; animation: fadeInUp 1.2s ease-out forwards; opacity: 0; transform: translateY(30px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .hero-subtitle { color: var(--accent); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; display: inline-block; padding: 0.5rem 1rem; border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 2px; background: var(--accent-dim); }
+        .hero-title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; color: var(--text-primary); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+        .hero-title .accent-name { color: var(--accent); }
+        .hero-desc { font-size: 1.1rem; color: var(--text-secondary); max-width: 500px; margin-bottom: 2.5rem; line-height: 1.7; }
+        .hero-cta { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2.2rem; background: var(--accent); color: var(--bg-primary); font-weight: 600; font-size: 0.9rem; border-radius: 3px; text-decoration: none; letter-spacing: 0.05em; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; border: none; }
+        .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.25); }
+        section { padding: 7rem 3rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; color: var(--text-primary); letter-spacing: -0.01em; }
+        .section-subtitle { color: var(--text-secondary); font-size: 1rem; margin-bottom: 4rem; max-width: 600px; line-height: 1.7; }
+        .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1rem; }
+        .section-number { font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+        .divider { width: 60px; height: 1px; background: var(--accent); margin-bottom: 4rem; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+        .about-text p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        .about-skills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+        .skill-tag { padding: 0.4rem 1rem; border: 1px solid var(--border); border-radius: 3px; font-size: 0.8rem; color: var(--text-secondary); transition: all 0.3s; cursor: default; }
+        .skill-tag:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+        .about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        .stat-item { padding: 1.5rem; border: 1px solid var(--border); border-radius: 4px; transition: border-color 0.3s, transform 0.3s; }
+        .stat-item:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .stat-number { font-size: 2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.3rem; }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 0.05em; }
+        .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .project-item { padding: 2.5rem; border: 1px solid var(--border); border-radius: 4px; transition: all 0.4s; position: relative; overflow: hidden; }
+        .project-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+        .project-item:hover::before { transform: scaleX(1); }
+        .project-item:hover { border-color: rgba(0, 212, 255, 0.3); transform: translateY(-4px); }
+        .project-icon { width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.2rem; color: var(--accent); }
+        .project-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--text-primary); }
+        .project-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .project-tech span { font-size: 0.72rem; color: var(--text-muted); padding: 0.2rem 0.6rem; background: rgba(100, 116, 139, 0.1); border-radius: 2px; }
+        .tech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .tech-item { padding: 1.2rem; border: 1px solid var(--border); border-radius: 4px; text-align: center; transition: all 0.3s; }
+        .tech-item:hover { border-color: var(--accent); background: var(--accent-dim); }
+        .tech-item .tech-name { font-size: 0.85rem; font-weight: 500; color: var(--text-primary); }
+        .tech-item .tech-category { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem; }
+        .highlight-section { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .highlight-section section { max-width: 1200px; }
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--border); }
+        .timeline-item { position: relative; padding-bottom: 3rem; }
+        .timeline-item::before { content: ''; position: absolute; left: -2rem; top: 0.3rem; width: 9px; height: 9px; border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--accent); transform: translateX(-4px); }
+        .timeline-date { font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .timeline-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .timeline-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+        footer { padding: 4rem 3rem; border-top: 1px solid var(--border); text-align: center; }
+        .footer-text { color: var(--text-muted); font-size: 0.85rem; }
+        .scroll-reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
+        @media (max-width: 900px) {
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { display: none; }
+            section { padding: 4rem 1.5rem; }
+            .hero-content { padding: 0 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-logo">RCG.</div>
+        <ul class="nav-links">
+            <li><a href="#about">关于</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#tech">技术栈</a></li>
+            <li><a href="#timeline">历程</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-subtitle">项目作品集 Portfolio</div>
+            <h1 class="hero-title">你好，我是<span class="accent-name">任晨光</span></h1>
+            <p class="hero-desc">人工智能专业学生。横跨嵌入式开发、深度学习、大数据与数字图像处理，用代码连接硬件与智能。</p>
+            <a href="#projects" class="hero-cta">浏览项目 &rarr;</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header">
+            <span class="section-number">01</span>
+            <h2 class="section-title">关于我</h2>
+        </div>
+        <div class="divider"></div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>我是人工智能（专升本）1班的学生，学号 24511717127。在技术探索的路上，我从底层嵌入式硬件起步，逐步延伸到深度学习模型训练、边缘端部署与数字图像处理，并进一步拓展到 Web 全栈、电商自动化与企业级 AI 中台开发。</p>
+                <p>我享受将物理世界与数字世界连接的过程：从 Arduino 传感器的精确时序，到 YOLOv8 航拍小目标检测自研模块与 Jetson Orin 部署，再到 RAG + Agent 企业 AI 中台与浏览器自动化全链路打通。</p>
+                <div class="about-skills">
+                    <span class="skill-tag">Arduino</span>
+                    <span class="skill-tag">C/C++</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">JavaScript / TypeScript</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">YOLOv5 / YOLOv8</span>
+                    <span class="skill-tag">ONNX / TensorRT</span>
+                    <span class="skill-tag">Jetson Orin</span>
+                    <span class="skill-tag">OpenCV</span>
+                    <span class="skill-tag">PyQt5 / PyQt6</span>
+                    <span class="skill-tag">Next.js 16 / React 19</span>
+                    <span class="skill-tag">Node.js / Electron</span>
+                    <span class="skill-tag">RAG / Agent</span>
+                    <span class="skill-tag">Redis / SQLite + Drizzle</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Hadoop / MapReduce</span>
+                    <span class="skill-tag">DrissionPage / CDP</span>
+                    <span class="skill-tag">飞书多维表格 API</span>
+                    <span class="skill-tag">Dify / Coze 工作流</span>
+                    <span class="skill-tag">GradCAM 可解释性</span>
+                    <span class="skill-tag">I2C / UART / PWM</span>
+                    <span class="skill-tag">Git</span>
+                </div>
+            </div>
+            <div class="about-stats">
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">完整项目作品</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">核心技术方向</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Arduino 实验项目</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">60+</div>
+                    <div class="stat-label">企业中台 API 端点</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10 类</div>
+                    <div class="stat-label">VisDrone 航拍检测</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">30+ FPS</div>
+                    <div class="stat-label">Jetson Orin 推理帧率</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="highlight-section">
+        <section id="projects">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">精选项目</h2>
+            </div>
+            <div class="divider"></div>
+            <p class="section-subtitle">从嵌入式硬件到深度学习模型、边缘部署，再到 Web 全栈与企业级 AI 中台，横跨六大技术方向的完整实践体系。</p>
+            <div class="projects-grid">
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#127912;</div>
+                    <h3 class="project-title">毕业设计：基于YOLOv8的航拍小目标检测算法研究与部署</h3>
+                    <p class="project-desc"><strong>S/T</strong>：航拍影像中行人/车辆等目标像素占比极小，基线模型漏检率高，且边缘端（无人机/Jetson）推理速度受限。<br><strong>A</strong>：在YOLOv8主干中引入自研SFFM多尺度特征融合模块（3分支池化+上采样拼接+残差）与BFSM双向特征选择门控，注册为自定义层重训；以VisDrone2019无人机数据集（10类）训练800×800输入；导出ONNX并转换TensorRT FP16引擎，完成Jetson Orin NX部署脚本；用PyQt5写检测GUI，覆盖图像/视频/摄像头三种输入与conf/iou滑块。<br><strong>R</strong>：小目标检测AP提升约3~5个点，Jetson Orin下TensorRT FP16推理帧率达30+FPS，实现边缘端实时检测。</p>
+                    <div class="project-tech">
+                        <span>PyTorch</span>
+                        <span>YOLOv8</span>
+                        <span>自定义模块 SFFM/BFSM</span>
+                        <span>VisDrone2019</span>
+                        <span>ONNX / TensorRT</span>
+                        <span>Jetson Orin</span>
+                        <span>PyQt5</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#128640;</div>
+                    <h3 class="project-title">智元企业 AI 中台（ZAEP）</h3>
+                    <p class="project-desc"><strong>S/T</strong>：企业 AI 能力零散，缺少统一入口整合多模型对话、知识库、工作流、外贸看板等场景。<br><strong>A</strong>：基于 Next.js 16 App Router 搭建前后端同构中台，独立完成 8 大业务模块 60+ REST API；Drizzle ORM + SQLite 抽象数据层，JWT + RBAC 多租户权限；DeepSeek/OpenAI/Claude 多模型路由，RAG 引擎（文档解析→切分→向量化→检索重排）+ Agent Function Calling；Sentry 错误追踪、Vitest 单测、Playwright E2E、Docker Compose 一键部署。<br><strong>R</strong>：RAG 引擎完成度 90%、Agent 工具调用 95%、工作流持久化 90%，平台覆盖 AI 对话/知识库/工作流/外贸 3D 地球/营销自动化/RPA 等场景，v4.3 阶段规划 Redis 缓存后 P95 < 300ms。</p>
+                    <div class="project-tech">
+                        <span>Next.js 16</span>
+                        <span>React 19</span>
+                        <span>TypeScript 5.9</span>
+                        <span>Tailwind 4</span>
+                        <span>SQLite + Drizzle</span>
+                        <span>RAG / Agent</span>
+                        <span>Docker</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#127925;</div>
+                    <h3 class="project-title">AuroraMusic 游戏音乐混音播放器</h3>
+                    <p class="project-desc"><strong>S/T</strong>：希望在游戏中按快捷键把本地音乐 + 麦克风混合输出给队友，且不影响本地监听。<br><strong>A</strong>：用 koffi FFI 桥接 BASS/BASSmix 原生 DLL 免去 Node 原生模块编译，实现 12 种音频格式解码；设计跨设备混音：通过 BASS_STREAM_DECODE 创建音乐副本送入 VB-CABLE 虚拟设备 Mixer，分离 monitorGain/musicGain/micGain 三路独立音量；完成全局热键、CUE 整轨分轨、LRC 歌词同步、VB-CABLE 自动安装引导；NSIS 打包安装版与 portable 版。<br><strong>R</strong>：发布 Windows 安装包，支持 12 种格式与跨设备混音，本地监听与队友输出互不干扰。</p>
+                    <div class="project-tech">
+                        <span>Electron 28</span>
+                        <span>Vue 3 + Pinia</span>
+                        <span>TypeScript</span>
+                        <span>BASS / BASSmix</span>
+                        <span>koffi FFI</span>
+                        <span>better-sqlite3</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#128722;</div>
+                    <h3 class="project-title">88 AI 电商自动化系统 v2.0</h3>
+                    <p class="project-desc"><strong>S/T</strong>：1688 商品选品、爬虫、美工、上架全链路依赖人工，效率低且跨平台规范易出错。<br><strong>A</strong>：DrissionPage + CDP 协议直连本地 Chrome，复用登录态完成 GBK 搜索→详情 JS 注入提取→三级类目存储→飞书多维表格→主图下载全链路（~5 秒/页）；Dify/Coze 工作流编排 OCR→LLM 文案去违禁词→抠图白底→AI 二次生图→淘/抖/微信/拼多多四平台规范输出；Flask Web 控制台带实时日志与数据看板；修复 UTF-8 触发风控、图片双后缀、Excel 打开中保存崩溃等 10+ 关键 Bug。<br><strong>R</strong>：v2.0 全链路自动化，飞书每批次独立工作表 28 列数据，支持违禁词检测 + 四平台上架规范。</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>DrissionPage / CDP</span>
+                        <span>Dify / Coze 工作流</span>
+                        <span>飞书多维表格 API</span>
+                        <span>Flask</span>
+                        <span>pandas / KMeans</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#128144;</div>
+                    <h3 class="project-title">YOLOv5 人体目标检测 + GradCAM 可解释性</h3>
+                    <p class="project-desc"><strong>S/T</strong>：课程中需要从零跑完目标检测全流程，并可视化 CNN 究竟"看"哪里做出判断。<br><strong>A</strong>：在自建人体数据集上训练 YOLOv5s/YOLOv5s6 两个版本共 300 轮，完成数据标注→train→val→detect 闭环；用 PyTorch Hook 自主实现 GradCAM / GradCAM++，对检测头最后一层卷积回传梯度，生成热力图叠加原图输出；对比 v5s 与 v5s6 各层关注区域差异。<br><strong>R</strong>：产出完整训练日志与 mAP 指标，GradCAM 热力图直观展示模型关注人体轮廓区，用于课程答辩与论文可视化。</p>
+                    <div class="project-tech">
+                        <span>PyTorch</span>
+                        <span>YOLOv5 6.1</span>
+                        <span>GradCAM / GradCAM++</span>
+                        <span>迁移学习</span>
+                        <span>mAP / 混淆矩阵</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#127804;</div>
+                    <h3 class="project-title">PyTorch 手写 ResNet 花卉分类（102 类）</h3>
+                    <p class="project-desc"><strong>S/T</strong>：理解深度残差网络并在细粒度花卉数据集上验证效果。<br><strong>A</strong>：手写 BasicBlock（ResNet18/34）与 Bottleneck（ResNet50/101/152）两套残差块，严格对齐 PyTorch 官方 ResNet v1.5 规范（1×1步长 1、3×3步长 2 的实现，Top-1 约 +0.5%）；在 Oxford 102 Flowers 数据集上完成训练、学习率曲线、best_model 保存；配套 trans/可视化/排序脚本输出预测 Top-5。<br><strong>R</strong>：完整实现残差结构，102 类细粒度分类达到课程考核 Top-1 准确率要求。</p>
+                    <div class="project-tech">
+                        <span>PyTorch</span>
+                        <span>ResNet18/50/101</span>
+                        <span>BasicBlock / Bottleneck</span>
+                        <span>迁移学习</span>
+                        <span>102 Flowers Dataset</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#128247;</div>
+                    <h3 class="project-title">Python 数字图像编辑器（PyQt6）</h3>
+                    <p class="project-desc"><strong>S/T</strong>：数字图像处理课程需把所学 20+ 算法做成可交互桌面工具。<br><strong>A</strong>：PyQt6 + OpenCV 架构，ImageEditor 核心类支持中文路径读写（imdecode/imwrite）、另存为、重命名；实现形态学开闭运算/顶帽/黑帽、固定阈值 + 自适应阈值分割、Sobel/Canny 边缘检测、BGR↔HSV/YCrCb 色彩空间与亮度/对比度/饱和度曲线、直方图均衡（含 CLAHE）、红眼消除指定区域修补；支持 QSlider 实时预览。<br><strong>R</strong>：单文件脚本即点即开，20+ 图像处理功能全部 GUI 可操作，通过课程答辩。</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>PyQt6</span>
+                        <span>OpenCV</span>
+                        <span>NumPy</span>
+                        <span>CLAHE / 形态学 / Canny</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#9881;</div>
+                    <h3 class="project-title">Arduino 嵌入式开发体系（10+ 递进实验）</h3>
+                    <p class="project-desc"><strong>S/T</strong>：从裸 GPIO 起步，逐步融合多模块构建可展示的综合嵌入式作品。<br><strong>A</strong>：完成 10+ 递进式实验：基础 GPIO / PWM 蜂鸣器 tune() → HC-SR04 超声波测距 pulseIn() + 倒车雷达分级警报 → DS1307 RTC 通过 I2C 读写真实时间 → 四位共阴数码管动态扫描（无阻塞 millis() 替换 delay） → LCD 1602A 双行显示 → 光敏电阻 ADC + 自动亮度校准；最终整合为「倒车雷达 + 智能时钟」多页面切换系统。<br><strong>R</strong>：保留全部 .ino 源码与配套实验报告文档（超声波/RTC/数码管/蜂鸣器 4 份），综合系统功能完整。</p>
+                    <div class="project-tech">
+                        <span>Arduino Uno / Mega</span>
+                        <span>HC-SR04</span>
+                        <span>DS1307 RTC</span>
+                        <span>LCD 1602A (I2C)</span>
+                        <span>四位数码管扫描</span>
+                        <span>PWM / millis()</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#127968;</div>
+                    <h3 class="project-title">Hadoop + MapReduce 大数据课程集群搭建</h3>
+                    <p class="project-desc"><strong>S/T</strong>：课程要求从 0 搭建分布式 Hadoop 集群，并跑通 MapReduce 编程模型。<br><strong>A</strong>：编写完整集群搭建教程：SSH 免密 → JDK / Hadoop 环境变量 → core-site.xml / hdfs-site.xml / mapred-site.xml / yarn-site.xml 四套配置 → NameNode/DataNode/ResourceManager/NodeManager 角色分工 → HDFS 格式化与启停脚本；撰写 MapReduce 单词计数与自定义 InputFormat 两个案例，分析 InputSplit→Map→Shuffle→Reduce 全流程。<br><strong>R</strong>：教程与案例分析作为课程考核交付，3 节点集群可稳定运行 MapReduce Job。</p>
+                    <div class="project-tech">
+                        <span>Hadoop 3.x</span>
+                        <span>HDFS</span>
+                        <span>MapReduce</span>
+                        <span>YARN</span>
+                        <span>SSH 免密</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#127758;</div>
+                    <h3 class="project-title">AI 创意设计想法展示平台（130 条创意）</h3>
+                    <p class="project-desc"><strong>S/T</strong>：13 份 Markdown 累积的 130 条 AI 设计创意需统一可视化并支持多维筛选。<br><strong>A</strong>：脚本解析 13 份 MD → 结构化 JSON（130 条）；Three.js 粒子动画背景；按 6 类设计类别筛选 + 可行性/难度/成本/日期 4 维排序；SheetJS 支持 Excel 上传热更新；输出桌面端 + 移动端玻璃拟态深色主题两套页面（index.html / preview.html）+ 部署指南。<br><strong>R</strong>：130 张卡片全量上线，移动端可用，Excel 一键导入即可更新数据。</p>
+                    <div class="project-tech">
+                        <span>HTML / CSS / JS</span>
+                        <span>Three.js</span>
+                        <span>SheetJS (xlsx)</span>
+                        <span>响应式 / 玻璃拟态</span>
+                        <span>JSON 数据驱动</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#128214;</div>
+                    <h3 class="project-title">企业 RAG 知识库搭建向导（交互式教程）</h3>
+                    <p class="project-desc"><strong>S/T</strong>：非技术用户搭建 RAG 门槛高，需一步一引导的可视化教程页。<br><strong>A</strong>：用 HTML + CSS + JS 写多步骤进度条向导（数据准备→切分→向量化→检索→评估→上线），每步带代码片段、检查清单、常见陷阱；集成 Chart.js 柱状/折线图展示 Token 成本、检索命中率等指标；支持深色主题与键盘操作。<br><strong>R</strong>：单文件即可离线打开，覆盖从 0 到上线完整流程，供企业内部培训使用。</p>
+                    <div class="project-tech">
+                        <span>HTML / CSS / JS</span>
+                        <span>Chart.js</span>
+                        <span>RAG 流程指导</span>
+                        <span>离线单文件</span>
+                    </div>
+                </div>
+                <div class="project-item scroll-reveal">
+                    <div class="project-icon">&#129302;</div>
+                    <h3 class="project-title">AI Agent 岗位提示词工程（20 份合集）</h3>
+                    <p class="project-desc"><strong>S/T</strong>：新兴 AI 岗位（智能体编排、知识库、具身智能、AI 合规等）需标准化 Prompt 模板沉淀。<br><strong>A</strong>：按 Day01 系列撰写 20 个 AI 新岗位专业提示词：智能体编排工程师 / RAG 知识库工程师 / 具身智能工程师 / 上下文架构师 / AI 合规官 / AI 伦理对齐专家 / 生成式 AI 系统测试员 / 企业 AI 落地顾问 / AI 数字人训练师 / 工业 AI 质检训练师等，每份包含角色定义、核心任务、输入输出规范、负面约束。<br><strong>R</strong>：20 份模板汇总为合集 Markdown，可直接用于 AI Agent 角色配置与课程作业。</p>
+                    <div class="project-tech">
+                        <span>Prompt Engineering</span>
+                        <span>AI Agent 角色定义</span>
+                        <span>Markdown 沉淀</span>
+                        <span>RAG / Agent / 具身智能</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section id="tech">
+        <div class="section-header">
+            <span class="section-number">03</span>
+            <h2 class="section-title">技术栈</h2>
+        </div>
+        <div class="divider"></div>
+        <div class="tech-grid">
+            <div class="tech-item scroll-reveal"><div class="tech-name">Arduino</div><div class="tech-category">嵌入式</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">C / C++</div><div class="tech-category">语言</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">Python</div><div class="tech-category">语言</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">TypeScript</div><div class="tech-category">语言</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">PyTorch</div><div class="tech-category">深度学习</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">YOLOv5 / v8</div><div class="tech-category">目标检测</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">TensorRT / ONNX</div><div class="tech-category">模型部署</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">Jetson Orin</div><div class="tech-category">边缘计算</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">OpenCV</div><div class="tech-category">图像处理</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">PyQt5 / PyQt6</div><div class="tech-category">GUI</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">Next.js / React</div><div class="tech-category">前端全栈</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">Electron / Vue 3</div><div class="tech-category">桌面应用</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">RAG / Agent</div><div class="tech-category">企业 AI</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">SQLite + Drizzle</div><div class="tech-category">数据库</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">Hadoop / MR</div><div class="tech-category">大数据</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">DrissionPage</div><div class="tech-category">浏览器自动化</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">Docker</div><div class="tech-category">容器化</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">Git</div><div class="tech-category">版本控制</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">I2C / UART</div><div class="tech-category">通信协议</div></div>
+            <div class="tech-item scroll-reveal"><div class="tech-name">飞书 API</div><div class="tech-category">企业集成</div></div>
+        </div>
+    </section>
+
+    <div class="highlight-section">
+        <section id="timeline">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">学习历程</h2>
+            </div>
+            <div class="divider"></div>
+            <div class="timeline">
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-date">第一阶段：嵌入式打底</div>
+                    <div class="timeline-title">Arduino 基础与多传感器集成</div>
+                    <div class="timeline-desc">从数字/模拟 I/O、PWM 蜂鸣器 tune() 起步，掌握 HC-SR04 超声波 pulseIn()、光敏电阻 ADC 读取；进阶到 DS1307 RTC + LCD 1602A（I2C）、四位数码管动态扫描；以 millis() 非阻塞替换 delay，交付 10+ 实验与 4 份配套报告，最终整合为倒车雷达+智能时钟系统。</div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-date">第二阶段：深度学习入门</div>
+                    <div class="timeline-title">ResNet + YOLOv5 + GradCAM 可解释性</div>
+                    <div class="timeline-desc">手写 BasicBlock/Bottleneck 两套残差块对齐 PyTorch 官方 ResNet v1.5 规范，完成 102 类花卉分类；在自建人体数据集上训练 YOLOv5s/YOLOv5s6 共 300 轮；用 PyTorch Hook 自主实现 GradCAM/GradCAM++ 热力图，理解 CNN 注意力机制。</div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-date">第三阶段：毕业设计攻坚</div>
+                    <div class="timeline-title">YOLOv8 航拍小目标检测 + Jetson 边缘部署</div>
+                    <div class="timeline-desc">针对 VisDrone2019 航拍影像小目标难题，在 YOLOv8 中自研并注册 SFFM 多尺度融合与 BFSM 双向门控两个自定义模块重训；导出 ONNX 并转换 TensorRT FP16 引擎，完成 Jetson Orin NX 部署脚本与三预设性能优化；用 PyQt5 写检测 GUI，实现边缘端 30+ FPS 实时检测。</div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-date">第四阶段：工程与应用</div>
+                    <div class="timeline-title">数字图像处理 GUI 与 Hadoop 大数据</div>
+                    <div class="timeline-desc">PyQt6 + OpenCV 构建图像编辑器，覆盖形态学/阈值分割/边缘检测/色彩调整/CLAHE/红眼消除 20+ 功能；同期完成 Hadoop 集群搭建教程与 MapReduce 两个案例分析，3 节点集群稳定跑通 WordCount 与自定义 InputFormat。</div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-date">第五阶段：Web 全栈 & 企业 AI</div>
+                    <div class="timeline-title">ZAEP 企业 AI 中台 + 电商自动化全链路</div>
+                    <div class="timeline-desc">Next.js 16 App Router 从零搭建智元 AI 中台：60+ REST API、RAG 引擎、Agent Function Calling、工作流持久化、8 大业务模块、Docker Compose 一键部署；并行做 1688→AI 美工→四平台上架全链路：DrissionPage CDP 爬虫 + 飞书多维表格 + Dify 工作流 OCR/去违禁词/抠图/生图 + Flask Web 控制台。</div>
+                </div>
+                <div class="timeline-item scroll-reveal">
+                    <div class="timeline-date">第六阶段：跨域拓展</div>
+                    <div class="timeline-title">桌面播放器 / 设计平台 / 提示词合集</div>
+                    <div class="timeline-desc">Electron + Vue 3 + BASS 原生 DLL 做 AuroraMusic 跨设备混音播放器（12 种格式、VB-CABLE 自动安装）；130 条 AI 设计创意解析成 JSON 建展示平台，Three.js 背景 + SheetJS 热更新；沉淀 20 个 AI 新岗位专业提示词模板，完成企业 RAG 搭建向导页。</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p class="footer-text">任晨光 — 人工智能（专升本）1班 — 24511717127<br>用代码连接硬件与智能</p>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

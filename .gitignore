@@ -1,0 +1,30 @@
+# 排除所有非网站文件
+AuroraMusic/
+PyTorch-花卉/
+Yolov5/
+新项目/
+毕业设计代码整理/
+电商/
+代码部分/
+AI_agent提示词/
+AI创意设计想法展示平台/
+企业RAG搭建/
+人工智能（专升本）1班_24511717127_任晨光-大数据技术与应用课程考核/
+
+# 排除大文件
+*.docx
+*.py
+*.ipynb
+*.exe
+*.zip
+*.rar
+*.7z
+*.tar.gz
+*.pth
+*.tgz
+*.mat
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini

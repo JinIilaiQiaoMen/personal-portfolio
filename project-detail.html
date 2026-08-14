@@ -1293,6 +1293,18 @@ hdfs dfs -ls /mydir
   document.getElementById('prevTitle').textContent = prevP.title;
   document.getElementById('nextTitle').textContent = nextP.title;
 
+  // Top bar prev/next buttons
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  if (prevBtn) {
+    prevBtn.href = `project-detail.html?id=${prevP.id}`;
+    prevBtn.title = `上一个项目：${prevP.title}`;
+  }
+  if (nextBtn) {
+    nextBtn.href = `project-detail.html?id=${nextP.id}`;
+    nextBtn.title = `下一个项目：${nextP.title}`;
+  }
+
   // Show
   document.getElementById('loadingScreen').style.display = 'none';
   document.getElementById('projectDetail').style.display = 'block';

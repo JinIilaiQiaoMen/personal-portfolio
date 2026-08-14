@@ -1,4 +1,4 @@
-# 排除所有非网站文件
+﻿# 排除所有非网站文件
 AuroraMusic/
 PyTorch-花卉/
 Yolov5/
@@ -28,3 +28,11 @@ AI创意设计想法展示平台/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+作品集风格参考_帧预览.png
+8月14日视频_帧预览.png
+
+# 本地工具与临时预览
+.trae/
+作品集风格参考_帧预览.png
+8月14日视频_帧预览.png
